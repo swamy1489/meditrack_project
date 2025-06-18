@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Appointments | MediTrack</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    body.home {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      position: relative;
+      background: #000;
+    }
+
+    .animated-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(270deg,
+        #ffecd2, #fcb69f, #f6d365,
+        #c3cfe2, #e0c3fc, #a1c4fd, #c2e9fb);
+      background-size: 1000% 1000%;
+      animation: gradientMove 10s ease infinite;
+      z-index: -2;
+    }
+
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .circle {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(12px);
+      animation: float 25s infinite ease-in-out;
+    }
+
+    .circle:nth-child(2) {
+      width: 220px; height: 220px;
+      top: 15%; left: 12%;
+      animation-delay: 0s;
+    }
+
+    .circle:nth-child(3) {
+      width: 300px; height: 300px;
+      top: 60%; left: 65%;
+      animation-delay: 4s;
+    }
+
+    .circle:nth-child(4) {
+      width: 160px; height: 160px;
+      top: 75%; left: 25%;
+      animation-delay: 8s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-40px) scale(1.05); }
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(20px);
+      padding: 3rem 2rem;
+      border-radius: 20px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+      width: 90%;
+      max-width: 700px;
+      text-align: center;
+      z-index: 1;
+      color: #fff;
+    }
+
+    h1 {
+      font-size: 2.6rem;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+    }
+
+    .options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .option-btn {
+      padding: 1rem;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #fff;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+
+    .option-btn:hover {
+      transform: scale(1.03);
+      background: linear-gradient(135deg, #764ba2, #667eea);
+    }
+
+    .back-btn {
+      margin-top: 1rem;
+      display: inline-block;
+      font-size: 1rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: 10px;
+      background: #ffffff33;
+      color: #fff;
+      text-decoration: none;
+      transition: background 0.3s ease;
+    }
+
+    .back-btn:hover {
+      background: #ffffff55;
+    }
+
+    .footer {
+      margin-top: 1.5rem;
+      font-size: 0.9rem;
+      color: #ffffffcc;
+    }
+  </style>
+</head>
+<body class="home">
+  <!-- Animated Background -->
+  <div class="animated-bg"></div>
+  <div class="circle"></div>
+  <div class="circle"></div>
+  <div class="circle"></div>
+
+  <!-- Content -->
+  <div class="container">
+    <h1>📅 Your Appointments</h1>
+    <p>Manage your appointments efficiently and stay on top of your health.</p>
+
+    <div class="options">
+      <a href="/book-appointment" class="option-btn"><i class="fa-solid fa-plus"></i> Book New Appointment</a>
+      <a href="/upcoming-appointments" class="option-btn"><i class="fa-solid fa-calendar-day"></i> Upcoming Appointments</a>
+      <a href="/cancel-appointment" class="option-btn"><i class="fa-solid fa-ban"></i> Cancel Appointment</a>
+      <a href="/reschedule-appointment" class="option-btn"><i class="fa-solid fa-clock-rotate-left"></i> Reschedule</a>
+    </div>
+
+    <a href="/" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Back to Dashboard</a>
+
+    <div class="footer">
+      <p>&copy; 2025 MediTrack. All rights reserved.</p>
+    </div>
+  </div>
+</body>
+</html>

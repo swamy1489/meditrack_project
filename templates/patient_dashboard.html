@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Patient Dashboard | MediTrack</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    body.home {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      background: linear-gradient(135deg, #e7ecf3, #f5f9ff);
+      position: relative;
+    }
+
+    .circle {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      animation: float 18s infinite ease-in-out;
+    }
+
+    .circle:nth-child(2) {
+      width: 180px; height: 180px;
+      top: 15%; left: 10%;
+    }
+
+    .circle:nth-child(3) {
+      width: 250px; height: 250px;
+      top: 60%; left: 70%;
+      animation-delay: 4s;
+    }
+
+    .circle:nth-child(4) {
+      width: 140px; height: 140px;
+      top: 80%; left: 25%;
+      animation-delay: 8s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-40px) scale(1.05); }
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(25px);
+      padding: 3rem 2.5rem;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      width: 90%;
+      max-width: 600px;
+      text-align: center;
+      z-index: 1;
+    }
+
+    h1 {
+      font-size: 2.6rem;
+      margin-bottom: 1rem;
+      color: #1d1d1f;
+    }
+
+    p {
+      font-size: 1.1rem;
+      color: #4d4d4f;
+      margin-bottom: 2rem;
+    }
+
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .btn {
+      padding: 1rem;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: white;
+      background: linear-gradient(135deg, #4e8cff, #5a62e7);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .btn:hover {
+      background: linear-gradient(135deg, #5a62e7, #4e8cff);
+      transform: scale(1.02);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+    }
+
+    .buttons i {
+      margin-right: 0.6rem;
+    }
+
+    .footer {
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      color: #666;
+    }
+  </style>
+</head>
+<body class="home">
+  <!-- Background Bubbles -->
+  <div class="circle"></div>
+  <div class="circle"></div>
+  <div class="circle"></div>
+
+  <!-- Dashboard Container -->
+  <div class="container">
+    <h1>👋 Welcome, Patient</h1>
+    <p>Your health records are secure and always available to you.</p>
+
+    <div class="buttons">
+      <a href="/appointments" class="btn">
+        <i class="fa-solid fa-calendar-check"></i> View Appointments
+      </a>
+      <a href="/prescriptions" class="btn">
+        <i class="fa-solid fa-prescription-bottle-medical"></i> Prescriptions
+      </a>
+      <a href="/reports" class="btn">
+        <i class="fa-solid fa-file-medical"></i> Reports
+      </a>
+    </div>
+
+    <div class="footer">
+      <p>&copy; 2025 MediTrack. All rights reserved.</p>
+    </div>
+  </div>
+</body>
+</html>

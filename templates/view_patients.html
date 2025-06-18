@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>All Patients | MediTrack</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body.home {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #000;
+      overflow: hidden;
+    }
+
+    .animated-bg {
+      position: fixed;
+      width: 100vw;
+      height: 100vh;
+      background: linear-gradient(270deg, #c2e9fb, #a1c4fd, #fad0c4);
+      background-size: 1000% 1000%;
+      animation: gradientMove 6s infinite;
+      z-index: -1;
+    }
+
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(18px);
+      padding: 2rem;
+      border-radius: 16px;
+      margin: 3rem auto;
+      max-width: 800px;
+      color: #fff;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1.5rem;
+      background-color: rgba(255, 255, 255, 0.05);
+    }
+
+    th, td {
+      padding: 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    th {
+      background-color: rgba(255, 255, 255, 0.1);
+      color: #fff;
+    }
+
+    td {
+      color: #eee;
+    }
+
+    .btn {
+      margin-top: 2rem;
+      padding: 0.75rem 1.5rem;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      text-decoration: none;
+      border-radius: 10px;
+      transition: 0.3s ease;
+      display: inline-block;
+    }
+
+    .btn:hover {
+      transform: scale(1.05);
+      background: linear-gradient(135deg, #764ba2, #667eea);
+    }
+  </style>
+</head>
+<body class="home">
+  <div class="animated-bg"></div>
+
+  <div class="container">
+    <h1>🧾 All Patients</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Age</th>
+          <th>Condition</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for patient in patients %}
+        <tr>
+          <td>{{ patient.id }}</td>
+          <td>{{ patient.name }}</td>
+          <td>{{ patient.age }}</td>
+          <td>{{ patient.condition }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <a href="/admin_dashboard" class="btn"><i class="fas fa-arrow-left"></i> Back to Admin Dashboard</a>
+  </div>
+</body>
+</html>
