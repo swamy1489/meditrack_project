@@ -99,23 +99,20 @@
   </style>
 </head>
 <body class="home">
-  <!-- Background -->
   <div class="animated-bg"></div>
-
-  <!-- Admin Container -->
   <div class="container">
     <h1>🛠️ Welcome, Admin</h1>
     <p>Manage MediTrack's operations and data with ease.</p>
 
     <div class="buttons">
-      <a href="/patients" class="btn"><i class="fa-solid fa-users"></i> View Patients</a>
-      <a href="/add_prescription" class="btn"><i class="fa-solid fa-pills"></i> Add Prescription</a>
-      <a href="/admin_appointments" class="btn"><i class="fa-solid fa-calendar-check"></i> Appointments</a>
-      <a href="/analytics" class="btn"><i class="fa-solid fa-chart-line"></i> Health Analytics</a>
-      <a href="/manage_reports" class="btn"><i class="fa-solid fa-file-medical-alt"></i> Manage Reports</a>
-      <a href="/send_alerts" class="btn"><i class="fa-solid fa-bell"></i> Send Alerts</a>
-      <a href="/admin_settings" class="btn"><i class="fa-solid fa-gears"></i> Settings</a>
-      <a href="/" class="btn"><i class="fa-solid fa-arrow-left"></i> Back to Home</a>
+      <a href="{{ url_for('patients') }}" class="btn"><i class="fa-solid fa-users"></i> View Patients</a>
+      <a href="{{ url_for('add_prescription') }}" class="btn"><i class="fa-solid fa-pills"></i> Add Prescription</a>
+      <a href="{{ url_for('admin_appointments') }}" class="btn"><i class="fa-solid fa-calendar-check"></i> Appointments</a>
+      <a href="{{ url_for('analytics') }}" class="btn"><i class="fa-solid fa-chart-line"></i> Health Analytics</a>
+      <a href="#" class="btn"><i class="fa-solid fa-file-medical-alt"></i> Manage Reports</a>
+      <a href="#" class="btn"><i class="fa-solid fa-bell"></i> Send Alerts</a>
+      <a href="#" class="btn"><i class="fa-solid fa-gears"></i> Settings</a>
+      <a href="{{ url_for('home') }}" class="btn"><i class="fa-solid fa-arrow-left"></i> Back to Home</a>
     </div>
 
     <div class="footer">

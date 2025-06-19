@@ -159,7 +159,10 @@
       <a href="/reschedule-appointment" class="option-btn"><i class="fa-solid fa-clock-rotate-left"></i> Reschedule</a>
     </div>
 
-    <a href="/" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Back to Dashboard</a>
+    <!-- Updated Back Button -->
+    <a href="{{ url_for('admin_dashboard') if session['role'] == 'admin' else url_for('patient_dashboard') }}" class="back-btn">
+      <i class="fa-solid fa-arrow-left"></i> Back to Dashboard
+    </a>
 
     <div class="footer">
       <p>&copy; 2025 MediTrack. All rights reserved.</p>

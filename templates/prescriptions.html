@@ -83,7 +83,7 @@
       border-radius: 20px;
       box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
       width: 90%;
-      max-width: 600px;
+      max-width: 700px;
       text-align: center;
       z-index: 1;
     }
@@ -95,15 +95,20 @@
       margin-bottom: 1rem;
     }
 
-    p {
-      font-size: 1.2rem;
-      color: #fefefe;
-      margin-bottom: 2rem;
+    ul.prescription-list {
+      list-style: none;
+      padding: 0;
+      margin-top: 2rem;
+      color: #fff;
     }
 
-    .buttons {
-      display: flex;
-      justify-content: center;
+    ul.prescription-list li {
+      padding: 0.8rem 1rem;
+      margin: 0.5rem 0;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.15);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      text-align: left;
     }
 
     .btn {
@@ -116,6 +121,7 @@
       border-radius: 12px;
       transition: all 0.3s ease;
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      margin-top: 1.5rem;
     }
 
     .btn:hover {
@@ -141,13 +147,20 @@
   <!-- Content -->
   <div class="container">
     <h1>💊 Your Prescriptions</h1>
-    <p>Access your medication history and download prescriptions at your convenience.</p>
 
-    <div class="buttons">
-      <a href="/" class="btn">
-        <i class="fas fa-arrow-left"></i> Back to Dashboard
-      </a>
-    </div>
+    {% if prescriptions %}
+      <ul class="prescription-list">
+        {% for pres in prescriptions %}
+          <li>{{ pres[0] }}</li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p style="color: white;">No prescriptions found.</p>
+    {% endif %}
+
+    <a href="{{ url_for('patient_dashboard') }}" class="btn">
+      <i class="fas fa-arrow-left"></i> Back to Dashboard
+    </a>
 
     <div class="footer">
       <p>&copy; 2025 MediTrack. All rights reserved.</p>

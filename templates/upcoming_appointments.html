@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Upcoming Appointments | MediTrack</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(270deg, #a1c4fd, #c2e9fb);
+      background-size: 1000% 1000%;
+      animation: bgMove 15s ease infinite;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+    }
+
+    @keyframes bgMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(20px);
+      padding: 2rem;
+      border-radius: 15px;
+      width: 90%;
+      max-width: 600px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      background: rgba(255, 255, 255, 0.15);
+      margin-bottom: 1rem;
+      padding: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .back {
+      text-align: center;
+      margin-top: 1.5rem;
+    }
+
+    .back a {
+      color: #fff;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>📅 Upcoming Appointments</h2>
+    
+    {% if appointments %}
+      <ul>
+        {% for doctor, date in appointments %}
+          <li>
+            <strong>Doctor:</strong> {{ doctor }}<br>
+            <strong>Date:</strong> {{ date }}
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No appointments found.</p>
+    {% endif %}
+
+    <div class="back">
+      <a href="{{ url_for('patient_dashboard') }}"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
+    </div>
+  </div>
+</body>
+</html>

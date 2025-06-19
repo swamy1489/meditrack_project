@@ -148,7 +148,7 @@
     <p>View lab results, scan reports, and other medical documents with ease.</p>
 
     <div class="buttons">
-      <a href="/" class="btn">
+      <a href="{{ url_for('admin_dashboard') if session['role'] == 'admin' else url_for('patient_dashboard') }}" class="btn">
         <i class="fas fa-arrow-left"></i> Back to Dashboard
       </a>
     </div>

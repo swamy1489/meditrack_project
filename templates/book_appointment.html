@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Book Appointment | MediTrack</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(270deg, #e0c3fc, #8ec5fc, #a1c4fd, #c2e9fb);
+      background-size: 1000% 1000%;
+      animation: bgMove 15s ease infinite;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    @keyframes bgMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .form-box {
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(20px);
+      padding: 2.5rem;
+      border-radius: 15px;
+      width: 90%;
+      max-width: 500px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+      color: #fff;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    label {
+      font-weight: 600;
+      margin: 10px 0 5px;
+    }
+
+    input, select {
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      outline: none;
+      font-size: 1rem;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 12px;
+      font-size: 1.1rem;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      border: none;
+      border-radius: 10px;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: linear-gradient(135deg, #764ba2, #667eea);
+    }
+
+    .back {
+      margin-top: 1rem;
+      text-align: center;
+    }
+
+    .back a {
+      color: #fff;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-box">
+    <h2>📅 Book an Appointment</h2>
+    <form method="POST">
+      <label for="doctor">Select Doctor</label>
+      <select name="doctor" required>
+        <option value="">-- Choose a Doctor --</option>
+        <option value="Dr. Priya Sharma">Dr. Priya Sharma</option>
+        <option value="Dr. Aditya Rao">Dr. Aditya Rao</option>
+        <option value="Dr. Fatima Hussain">Dr. Fatima Hussain</option>
+      </select>
+
+      <label for="date">Appointment Date</label>
+      <input type="date" name="date" required>
+
+      <button type="submit">Book Appointment</button>
+    </form>
+
+    <div class="back">
+      <a href="{{ url_for('patient_dashboard') }}"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
+    </div>
+  </div>
+</body>
+</html>

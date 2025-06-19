@@ -46,10 +46,7 @@ def login():
         if user:
             session['username'] = username
             session['role'] = user[3]
-            if user[3] == 'admin':
-                return redirect('/admin_dashboard')
-            else:
-                return redirect('/patient_dashboard')
+            return redirect('/admin_dashboard') if user[3] == 'admin' else redirect('/patient_dashboard')
     return render_template('login.html')
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -69,28 +66,45 @@ def register():
         return redirect('/login')
     return render_template('register.html')
 
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect('/login')
+
 @app.route('/patient_dashboard')
 def patient_dashboard():
+    if 'username' not in session or session.get('role') != 'patient':
+        return redirect('/login')
     return render_template('patient_dashboard.html')
 
 @app.route('/admin_dashboard')
 def admin_dashboard():
+    if 'username' not in session or session.get('role') != 'admin':
+        return redirect('/login')
     return render_template('admin_dashboard.html')
 
 @app.route('/patient_appts')
 def patient_appts():
+    if 'username' not in session or session.get('role') != 'patient':
+        return redirect('/login')
     return render_template('patient_appts.html')
 
 @app.route('/patient_prescriptions')
 def patient_prescriptions():
+    if 'username' not in session or session.get('role') != 'patient':
+        return redirect('/login')
     return render_template('patient_prescriptions.html')
 
 @app.route('/patient_reports')
 def patient_reports():
+    if 'username' not in session or session.get('role') != 'patient':
+        return redirect('/login')
     return render_template('patient_reports.html')
 
 @app.route('/patients')
 def patients():
+    if 'username' not in session or session.get('role') != 'admin':
+        return redirect('/login')
     conn = sqlite3.connect('meditrack.db')
     c = conn.cursor()
     c.execute("SELECT * FROM users WHERE role='patient'")
@@ -100,6 +114,8 @@ def patients():
 
 @app.route('/add_prescription', methods=['GET', 'POST'])
 def add_prescription():
+    if 'username' not in session or session.get('role') != 'admin':
+        return redirect('/login')
     if request.method == 'POST':
         patient = request.form['patient']
         prescription = request.form['prescription']
@@ -109,36 +125,97 @@ def add_prescription():
         conn.commit()
         conn.close()
         return redirect('/admin_dashboard')
-    return render_template('add_prescription.html')
-
-@app.route('/admin_appts')
-def admin_appts():
-    return render_template('admin_appts.html')
+    conn = sqlite3.connect('meditrack.db')
+    c = conn.cursor()
+    c.execute("SELECT username FROM users WHERE role='patient'")
+    patients = [row[0] for row in c.fetchall()]
+    conn.close()
+    return render_template('add_prescription.html', patients=patients)
 
 @app.route('/analytics')
 def analytics():
+    if 'username' not in session or session.get('role') != 'admin':
+        return redirect('/login')
     return render_template('analytics.html')
 
 @app.route('/appointments')
 def view_appointments():
-    return render_template('appointments.html')
-
-@app.route('/prescriptions')
-def prescriptions():
-    return render_template('prescriptions.html')
+    if 'username' not in session:
+        return redirect('/login')
+    conn = sqlite3.connect('meditrack.db')
+    c = conn.cursor()
+    c.execute("SELECT * FROM appointments")
+    appointments = c.fetchall()
+    conn.close()
+    return render_template('appointments.html', appointments=appointments)
 
 @app.route('/reports')
 def reports():
+    if 'username' not in session:
+        return redirect('/login')
     return render_template('reports.html')
 
 @app.route('/view_patients')
 def view_patients():
+    if 'username' not in session:
+        return redirect('/login')
     patients = [
         {"id": 1, "name": "John Doe", "age": 30, "condition": "Diabetes"},
         {"id": 2, "name": "Jane Smith", "age": 45, "condition": "Hypertension"},
         {"id": 3, "name": "Ali Khan", "age": 29, "condition": "Asthma"},
     ]
     return render_template("view_patients.html", patients=patients)
+
+@app.route('/book-appointment', methods=['GET', 'POST'])
+def book_appointment():
+    if 'username' not in session:
+        return redirect('/login')
+    if request.method == 'POST':
+        patient = session.get('username')
+        doctor = request.form['doctor']
+        date = request.form['date']
+        conn = sqlite3.connect('meditrack.db')
+        c = conn.cursor()
+        c.execute("INSERT INTO appointments (patient, doctor, date) VALUES (?, ?, ?)", (patient, doctor, date))
+        conn.commit()
+        conn.close()
+        return redirect('/appointments')
+    return render_template('book_appointment.html')
+
+@app.route('/upcoming-appointments')
+def upcoming_appointments():
+    if 'username' not in session:
+        return redirect('/login')
+    patient = session['username']
+    conn = sqlite3.connect('meditrack.db')
+    c = conn.cursor()
+    c.execute("SELECT doctor, date FROM appointments WHERE patient=?", (patient,))
+    appointments = c.fetchall()
+    conn.close()
+    return render_template('upcoming_appointments.html', appointments=appointments)
+
+@app.route('/admin_appointments')
+def admin_appointments():
+    if 'username' not in session or session.get('role') != 'admin':
+        return redirect('/login')
+    conn = sqlite3.connect('meditrack.db')
+    c = conn.cursor()
+    c.execute("SELECT patient, doctor, date FROM appointments")
+    appointments = c.fetchall()
+    conn.close()
+    return render_template('admin_appts.html', appointments=appointments)
+
+@app.route('/prescriptions')
+def prescriptions():
+    if 'username' not in session or session.get('role') != 'patient':
+        return redirect('/login')
+    patient = session['username']
+    conn = sqlite3.connect('meditrack.db')
+    c = conn.cursor()
+    c.execute("SELECT prescription FROM prescriptions WHERE patient=?", (patient,))
+    prescriptions = c.fetchall()
+    conn.close()
+    return render_template('prescriptions.html', prescriptions=prescriptions)
 
 if __name__ == '__main__':
     init_db()
