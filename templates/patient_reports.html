@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Your Reports | MediTrack</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f4f8;
+      padding: 30px;
+      color: #333;
+    }
+
+    h1 {
+      text-align: center;
+      color: #4a148c;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    li {
+      background: #fff;
+      padding: 15px;
+      margin: 10px 0;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    a {
+      color: #1565c0;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .back {
+      display: block;
+      text-align: center;
+      margin-top: 30px;
+      font-size: 1.1rem;
+      color: #444;
+    }
+  </style>
+</head>
+<body>
+  <h1>📄 Your Medical Reports</h1>
+
+  {% if reports %}
+    <ul>
+      {% for report in reports %}
+        <li><a href="{{ url_for('static', filename=report[0]) }}" target="_blank">
+          🗂️ View Report {{ loop.index }}
+        </a></li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p style="text-align:center;">No reports available.</p>
+  {% endif %}
+
+  <a href="{{ url_for('patient_dashboard') }}" class="back">← Back to Dashboard</a>
+</body>
+</html>
